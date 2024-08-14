@@ -123,13 +123,13 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Flow_Speed: 0.0163
+    - _Flow_Speed: 0.005
     - _Flow_Strength: 0.008
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Heightmap_Strength: 1
-    - _Island_Density: 5
+    - _Island_Density: 100
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
