@@ -13,6 +13,8 @@ public class EnterLavaCheck : MonoBehaviour
     public Vector3 LavaCheckPosition;
     public Vector3 LavaCheckSize;
 
+    public AudioClip SizzleSound;
+
     [field: SerializeField]
     public bool IsEntered { get; private set; }
 
@@ -28,7 +30,10 @@ public class EnterLavaCheck : MonoBehaviour
         if (IsActive == true)
             CheckForDestroy();
         if (IsEntered == true)
+        {
+            AudioManager.Instance.PlayEffect(SizzleSound);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private void CheckForDestroy()

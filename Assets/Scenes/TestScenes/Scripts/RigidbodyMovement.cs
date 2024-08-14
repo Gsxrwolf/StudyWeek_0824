@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody), typeof(GroundChecker))]
@@ -9,6 +10,7 @@ public class RigidbodyMovement : MonoBehaviour
     public float JumpPower;
     public float JumpSpeedModifier = 1;
     public float FallSpeedModifier = 1;
+    public List<AudioClip> JumpSounds = new List<AudioClip>();
 
     private new Transform transform;
     private new Rigidbody rigidbody;
@@ -43,7 +45,12 @@ public class RigidbodyMovement : MonoBehaviour
     public void Jump()
     {
         if (groundChecker.IsGrounded == true)
+        {
+            
+            AudioClip clip = JumpSounds[Random.Range(0, JumpSounds.Count)];
+            AudioManager.Instance.PlayEffect(clip);
             rigidbody.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
+        }
     }
     private void UpdateHorizontalMovement()
     {
