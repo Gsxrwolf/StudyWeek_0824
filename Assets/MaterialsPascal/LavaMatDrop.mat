@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: LavaMatDrop
   m_Shader: {fileID: -6465566751694194690, guid: c322270835ac84d4cbbd72c002bf9e57,
     type: 3}
   m_Parent: {fileID: 0}
@@ -151,7 +151,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Lava_Color: {r: 73.66038, g: 3.960235, b: 0, a: 1}
-    - _Lava_Speed: {r: 0.02, g: 0, b: 0, a: 0}
+    - _Lava_Speed: {r: 0, g: 0.02, b: 0, a: 0}
     - _Rock_Color: {r: 0.6792453, g: 0.4659515, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
