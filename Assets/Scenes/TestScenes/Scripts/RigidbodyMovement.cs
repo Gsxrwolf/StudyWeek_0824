@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent (typeof(Rigidbody), typeof(GroundChecker))]
 public class RigidbodyMovement : MonoBehaviour
@@ -11,6 +12,7 @@ public class RigidbodyMovement : MonoBehaviour
     public float JumpSpeedModifier = 1;
     public float FallSpeedModifier = 1;
     public List<AudioClip> JumpSounds = new List<AudioClip>();
+    public List<AudioClip> DamageSounds = new List<AudioClip>();
 
     private new Transform transform;
     private new Rigidbody rigidbody;
@@ -46,9 +48,11 @@ public class RigidbodyMovement : MonoBehaviour
     {
         if (groundChecker.IsGrounded == true)
         {
-            
+            // Play pop clip
             AudioClip clip = JumpSounds[Random.Range(0, JumpSounds.Count)];
             AudioManager.Instance.PlayEffect(clip);
+
+            // Jump
             rigidbody.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
         }
     }
@@ -73,4 +77,65 @@ public class RigidbodyMovement : MonoBehaviour
         if (rigidbody.velocity.y > 0)
             rigidbody.velocity += Vector3.up * Physics.gravity.y * JumpSpeedModifier * Time.fixedDeltaTime;
     }
+
+
+    #region Fall Stuff (Freddy)
+
+
+    private bool _aired = false;
+
+    private Vector3 _pos;
+
+    public float DamageDistance = 10;
+
+    void Update()
+    {
+        // Save aired state.
+        bool tmp = _aired;
+
+        // Get new aired state.
+        _aired = !groundChecker.IsGrounded;
+
+
+        // If in air
+        if(_aired)
+        {
+            // If jumped.
+            if(_aired != tmp)
+            {
+                // Set pos
+                _pos = new Vector3(0, transform.position.y, 0);
+            }
+        }
+
+        // If on ground
+        else
+        {
+            // Landed
+            if(_aired != tmp)
+            {
+                // Make sure the landing position is below start pos.
+                if(_pos.y < transform.position.y)
+                {
+                    return;
+                }
+
+                // Get damage distance (Only compare height)
+                float dist = Vector3.Distance(_pos, new Vector3(0, transform.position.y, 0));
+
+                // Check if player died from fall damage.
+                if(dist >= DamageDistance)
+                {
+                    // Play damage clip
+                    AudioClip clip = DamageSounds[Random.Range(0, DamageSounds.Count)];
+                    AudioManager.Instance.PlayEffect(clip);
+
+                    // Load scene
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+            }
+        }
+    }
+
+    #endregion
 }
