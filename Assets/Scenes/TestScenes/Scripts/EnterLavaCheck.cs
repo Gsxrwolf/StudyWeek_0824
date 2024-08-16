@@ -18,11 +18,11 @@ public class EnterLavaCheck : MonoBehaviour
     [field: SerializeField]
     public bool IsEntered { get; private set; }
 
-    private new Transform transform;
+    // private new Transform transform;
 
     private void Awake()
     {
-        transform = GetComponent<Transform>();
+        // transform = GetComponent<Transform>();
     }
 
     private void Update()
@@ -43,8 +43,6 @@ public class EnterLavaCheck : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        this.transform = GetComponent<Transform>();
-
         Gizmos.DrawCube(transform.position + LavaCheckPosition, LavaCheckSize);
     }
 }
